@@ -2,11 +2,23 @@
 
 ### Get Started
 
-#### Install dependencies
+### Back-end
+
+##### Build Docker image
+
+`docker-compose -f backend/docker-compose.yml build`
+
+##### Start
+
+`docker-compose -f backend/docker-compose.yml up`
+
+### Front-end
+
+##### Install dependencies
 
 `npm install`
 
-#### Run App
+##### Run App
 
 `npm start`
 

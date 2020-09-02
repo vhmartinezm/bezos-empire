@@ -9,7 +9,7 @@ const Icon = ({ success }) => (
   success ? <CheckCircleOutlined /> : <PlusCircleOutlined />
 );
 
-function TransactionComponent({ data, toggleMerchant }) {
+function TransactionComponent({ data, toggleUserCompany }) {
   const {
     date,
     amount,
@@ -20,7 +20,7 @@ function TransactionComponent({ data, toggleMerchant }) {
 
   return (
     <Transaction success={isBezosCompany}>
-      <span className="icon" onClick={toggleMerchant}>
+      <span className="icon" onClick={() => toggleUserCompany(merchant_name)}>
         <Icon success={isBezosCompany} />
       </span>
       <Currency>{amount}</Currency>

@@ -8,9 +8,9 @@ import { Container, Message } from './styles';
 
 import useTransactions from './useTransactions';
 
-const SortIcon = ({ order }) => (
+const SortIcon = React.memo(({ order }) => (
   order ? <ArrowDownOutlined /> : <ArrowUpOutlined />
-)
+));
 
 function TransactionsComponent() {
   const {

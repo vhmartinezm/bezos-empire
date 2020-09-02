@@ -1,23 +1,8 @@
-import { BEZOS_COMPANIES, CATEGORIES } from '../../config.js';
+import { CATEGORIES } from '../../config.js';
 
 
 function dateSort(a, b) {
   return new Date(b.date).getTime() - new Date(a.date).getTime();
-}
-
-const getBezosCompanies = (userCompanies) => ({
-  ...BEZOS_COMPANIES,
-  ...userCompanies,
-})
-
-function getNewValue(company, userCompanies) {
-  let newValue = true;
-  if (company in userCompanies) {
-    newValue = !userCompanies[company];
-  } else if (company in BEZOS_COMPANIES) {
-    newValue = false;
-  }
-  return newValue;
 }
 
 function getSummary(data) {
@@ -42,18 +27,15 @@ function getSummary(data) {
 }
 
 function filteredSummary(summary, userCompanies) {
-  const bezosCompanies = getBezosCompanies(userCompanies);
   return summary.filter(({ company }) => (
-    company in bezosCompanies && bezosCompanies[company]
+    userCompanies.length && userCompanies.includes(company)
   ));
 }
 
 function mapTransactions(transactions, desc = true, userCompanies) {
-  const bezosCompanies = getBezosCompanies(userCompanies);
   const data = transactions.map((transaction) => ({
     ...transaction,
-    isBezosCompany: transaction.merchant_name in bezosCompanies &&
-      bezosCompanies[transaction.merchant_name],
+    isBezosCompany: userCompanies.length && userCompanies.includes(transaction.merchant_name),
     category: transaction.category.map((cat) => CATEGORIES[cat] || '')
   })).sort(dateSort);
 
@@ -61,7 +43,6 @@ function mapTransactions(transactions, desc = true, userCompanies) {
 }
 
 export {
-  getNewValue,
   getSummary,
   filteredSummary,
   mapTransactions,
